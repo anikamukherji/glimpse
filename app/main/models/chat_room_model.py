@@ -4,6 +4,7 @@ from main import db
 class ChatRoom(db.Model):
     __tablename__ = 'chatroom'
     id = db.Column(db.String(100), primary_key=True)
+    owner = db.Column(db.String(100))
     created_at = db.Column(db.DateTime, nullable=False)
     ended_at = db.Column(db.DateTime, nullable=True)
     # how long (minutes) the chats should last

@@ -6,6 +6,12 @@ from main.models.user_model import User
 from werkzeug.security import generate_password_hash
 
 
+def get_user_by_id(user_id):
+    """ Queries DB for user by id 
+    """
+    return User.query.filter_by(id=user_id).first()
+
+
 def get_user_by_email(email):
     """ Queries DB for user by email
     """
