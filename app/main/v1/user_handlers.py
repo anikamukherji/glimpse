@@ -1,16 +1,17 @@
 from __future__ import absolute_import
 
-import json
 import datetime
-from flask import Blueprint
-from flask import request
+import json
+
+from flask import Blueprint, request
+
 from main import db
 from main.utils import user_utils
 
-user = Blueprint('user', __name__)
+user = Blueprint("user", __name__)
 
 
-@user.route('/user/<user_id>', methods=['GET'])
+@user.route("/user/<user_id>", methods=["GET"])
 def get_user_room(user_id):
     """ Get information for a user room
     """

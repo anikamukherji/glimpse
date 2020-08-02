@@ -5,8 +5,8 @@ import random
 import string
 
 from main import db
-from main.models.chat_room_model import ChatRoom
 from main.models.chat_model import Chat
+from main.models.chat_room_model import ChatRoom
 
 DEFAULT_CHAT_ID_LENGTH = 6
 
@@ -20,10 +20,10 @@ def generate_chat_id(id_length=DEFAULT_CHAT_ID_LENGTH):
     Check to make sure the room id doesn't exist already, only return id if unique.
     """
     valid_chars = string.ascii_letters + string.digits
-    room_id = ''.join((random.choice(valid_chars) for _ in range(id_length)))
+    room_id = "".join((random.choice(valid_chars) for _ in range(id_length)))
     already_exists = get_chat_by_id(room_id) is not None
     if already_exists:
-        room_id = ''.join((random.choice(valid_chars) for _ in range(id_length)))
+        room_id = "".join((random.choice(valid_chars) for _ in range(id_length)))
     return room_id
 
 
