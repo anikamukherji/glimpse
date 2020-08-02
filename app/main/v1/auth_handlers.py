@@ -1,9 +1,8 @@
 from __future__ import absolute_import
 
-import datetime
+import hashlib
 from flask import Blueprint
 from flask import request
-from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from main import db
 from main.models.user_model import User
@@ -28,15 +27,11 @@ def signup():
     email = request.args.get('email')
     name = request.args.get('name')
     password = request.args.get('password')
-    user = User.query.filter_by(email=email).first()
-    created_at = datetime.datetime.now()
+    user = user_utils.get_user_by_email(email)
 
     if user:
-        return "Looks like this user already exists.k"
-    new_user = User(email=email, name=name, password=generate_password_hash(password, method='sha256'), created_at=created_at, lifetime_chats=0)
-    db.session.add(new_user)
-    db.session.commit()
-    return new_user.id
+        return "Looks like this user already exists."
+    return user_utils.create_new_user(name, email, password)
 
 
 @auth.route('/logout')
