@@ -22,7 +22,11 @@ def create_app():
     app.register_blueprint(pages_blueprint)
 
     # blueprint for chat room operationss
-    from main.v1.chat_room_handlers import chat_room as chat_room
-    app.register_blueprint(chat_room)
+    from main.v1.chat_room_handlers import chat_room as chat_room_blueprint
+    app.register_blueprint(chat_room_blueprint)
+
+    # blueprint for chat operationss
+    from main.v1.chat_handlers import chat as chat_blueprint
+    app.register_blueprint(chat_blueprint)
 
     return app

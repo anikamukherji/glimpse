@@ -1,8 +1,10 @@
 from __future__ import absolute_import
 from main import db
 
-class ChatRoom(db.Model):
+
+class Chat(db.Model):
     id = db.Column(db.String(100), primary_key=True)
-    members = db.relationship('User', backref='chat', lazy=True)
+    # right now, a user can only be a part of one active conversation
+    members = db.relationship('User', backref='active_chat', lazy=True)
     created_at = db.Column(db.DateTime)
-    expired = db.Column(db.Boolean)
+    expired = db.Column(db.Boolean, default=False)

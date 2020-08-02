@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from main import db
-from main.models import User
+from main.models.user_model import User
 
 
 def get_user_by_email(email):

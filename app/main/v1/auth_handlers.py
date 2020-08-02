@@ -6,7 +6,7 @@ from flask import request
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 from main import db
-from main.models import User
+from main.models.user_model import User
 from main.utils import user_utils
 
 auth = Blueprint('auth', __name__)
@@ -14,8 +14,8 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['POST'])
 def login():
-    email = request.form.get('email')
-    password = request.form.get('password')
+    email = request.args.get('email')
+    password = request.args.get('password')
     user = user_utils.get_user_by_email(email)
 
     if not user or not check_password_hash(user.password, password):
@@ -25,9 +25,9 @@ def login():
 
 @auth.route('/signup', methods=["POST"])
 def signup():
-    email = request.form.get('email')
-    name = request.form.get('name')
-    password = request.form.get('password')
+    email = request.args.get('email')
+    name = request.args.get('name')
+    password = request.args.get('password')
     user = User.query.filter_by(email=email).first()
     created_at = datetime.datetime.now()
 
