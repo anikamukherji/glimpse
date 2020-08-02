@@ -10,4 +10,4 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     lifetime_chats = db.Column(db.Integer, nullable=False, default=0)
     chatroom_id = db.Column(db.String(100), db.ForeignKey('chatroom.id'), nullable=True)
-    chat = db.Column(db.String(100), db.ForeignKey('chat.id'), nullable=True)
+    chat_id = db.Column(db.String(100), db.ForeignKey('chat.id'), nullable=True)
