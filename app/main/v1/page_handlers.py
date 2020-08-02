@@ -1,13 +1,17 @@
 from __future__ import absolute_import
+
 from flask import Blueprint
+
 from main import db
 
-pages = Blueprint('pages', __name__)
+pages = Blueprint("pages", __name__)
 
-@pages.route('/')
+
+@pages.route("/")
 def index():
-    return 'Index'
+    return "Index"
 
-@pages.route('/profile')
+
+@pages.route("/profile")
 def profile():
-    return 'Profile'
+    return "Profile"

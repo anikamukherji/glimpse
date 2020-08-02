@@ -1,21 +1,20 @@
 from __future__ import absolute_import
 
-import random
-import json
 import datetime
-from flask import Blueprint
-from flask import request
+import json
+import random
+
+from flask import Blueprint, request
+
 from main import db
-from main.utils import chat_room_utils
-from main.utils import chat_utils
-from main.utils import user_utils
 from main.models.chat_model import Chat
 from main.models.chat_room_model import ChatRoom
+from main.utils import chat_room_utils, chat_utils, user_utils
 
-chat = Blueprint('chat', __name__)
+chat = Blueprint("chat", __name__)
 
 
-@chat.route('/chat/<chat_id>', methods=['GET'])
+@chat.route("/chat/<chat_id>", methods=["GET"])
 def get_chat_room(chat_id):
     """ Get information for a chat room
     """
@@ -33,11 +32,11 @@ def get_chat_room(chat_id):
     return json.dumps(chat_dict)
 
 
-@chat.route('/find_chat/<chat_room_id>')
+@chat.route("/find_chat/<chat_room_id>")
 def find_chat(chat_room_id):
     """ This endpoint should be be polled by client until it return a chat id
     """
-    user_id = request.args.get('user')
+    user_id = request.args.get("user")
     current_user = user_utils.get_user_by_id(user_id)
 
     room = chat_room_utils.get_room_by_id(chat_room_id)
@@ -53,7 +52,7 @@ def find_chat(chat_room_id):
     random.shuffle(members)
     for user in members:
         if user.id != user_id and not user.chat_id:
-            members=[current_user, user]
+            members = [current_user, user]
             new_chat_id = chat_utils.create_new_chat(members, chat_room_id)
             return new_chat_id
 
@@ -62,13 +61,13 @@ def find_chat(chat_room_id):
     return room.id
 
 
-@chat.route('/leave_chat/<chat_room_id>/<chat_id>')
+@chat.route("/leave_chat/<chat_room_id>/<chat_id>")
 def leave_chat(chat_room_id, chat_id):
-    user_id = request.args.get('user')
+    user_id = request.args.get("user")
     room = chat_room_utils.get_room_by_id(chat_room_id)
     if not room:
         return "Room not found."
-    
+
     user = user_utils.get_user_by_id(user_id)
 
     # increaese lifetime chats field and nullify chat_id field.
