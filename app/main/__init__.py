@@ -17,11 +17,15 @@ def create_app():
     from main.v1.auth_handlers import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
+    # blueprint for user operations
+    from main.v1.user_handlers import user as user_blueprint
+    app.register_blueprint(user_blueprint)
+
     # blueprint for landing pages
     from main.v1.page_handlers import pages as pages_blueprint
     app.register_blueprint(pages_blueprint)
 
-    # blueprint for chat room operationss
+    # blueprint for chat room operations
     from main.v1.chat_room_handlers import chat_room as chat_room_blueprint
     app.register_blueprint(chat_room_blueprint)
 
